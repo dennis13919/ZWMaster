@@ -6,10 +6,6 @@ from datetime import datetime
 
 class ZiweiDatabase:
     def __init__(self, db_name="ziwei_data.db"):
-        # 【重要修復】：解決 APK 更新時資料庫被清空的 Bug
-        # Flet 預設的 os.getcwd() 在手機上通常是 /data/.../files/app
-        # 每次覆蓋安裝 APK，這個 "app" 資料夾會被整包刪除重建！
-        # 因此我們要退回上一層的 "files" 目錄，這裡是安全且持久的。
         cwd = os.getcwd()
         if os.path.basename(cwd) == "app":
             safe_dir = os.path.dirname(cwd)
