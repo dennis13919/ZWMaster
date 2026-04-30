@@ -1,0 +1,9 @@
+[tool.flet]
+assets_dir="assets"
+
+[tool.flet.package]
+product_name = "ZWMaster"
+org_domain = "com.dennis.zwmaster"
+
+[tool.flet.android]
+icon = "assets/ZWMaster.png"
