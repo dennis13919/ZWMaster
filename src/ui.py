@@ -245,13 +245,13 @@ class BaseLayer(QWidget):
             text_height = fm.height() * 2
             # 座標: 擺在宮位名之下，高度一半
             label_x = rect.right() - 20
-            label_y = (rect.bottom() + rect.top()) // 2
+            label_y = (rect.bottom() + rect.top()) // 2 + get_font_offset()
             padding = 2  # 框的內邊距
             rounded_rect = QRect(
                 int(label_x - padding - 2),
-                int(label_y - text_height / 2),
+                int(label_y - text_height / 2 - padding),
                 int(text_width + padding * 2),
-                int(text_height)
+                int(text_height - get_font_offset())
             )
 
             painter.drawRoundedRect(rounded_rect, 5, 5)  # 圓弧半徑 5
@@ -289,18 +289,19 @@ class BaseLayer(QWidget):
             # 2. 根據類型決定字體與間距
             if s_type == "minor":
                 curr_font = font_minor
-                col_step = 16  # 雜曜佔用的寬度較窄
+                col_step = 16+ get_font_offset()  # 雜曜佔用的寬度較窄
                 spacing = 15  # 雜曜字與字的間距
             else:
                 curr_font = font_main
-                col_step = 22  # 主星/輔星維持原寬度
+                col_step = 18 + get_font_offset() # 主星/輔星維持原寬度
                 spacing = 18
 
             # 3. 安全檢查：如果快要撞到左邊界，強制縮小
             if current_x < rect.left() + 15:
                 curr_font.setPointSize(curr_font.pointSize() - 1)
                 col_step -= 2
-
+            # 上下文字間距
+            spacing += get_font_offset()
             # 4. 繪製星曜文字
             c = colors.get(s_name, QColor(0, 0, 128))
             VerticalTextPainter.draw_text(painter, current_x, rect.top() + 10, s_name, curr_font, c, spacing=spacing)
@@ -734,7 +735,7 @@ class InfoLayer(QWidget):
             self._draw_text_path(painter, start_x - col_gap * 3, top_y, self.center_info.get("ming_line", ""),
                                  font_bold, QColor(138, 43, 226))
 
-    def _draw_text_path(self, painter, x, y, text, font, color=Qt.black, spacing=18):
+    def _draw_text_path(self, painter, x, y, text, font, color=Qt.black, spacing=18+get_font_offset()):
         painter.save()
         current_y, stroke_pen = y, QPen(Qt.white, 4)
         for char in text:
