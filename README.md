@@ -62,7 +62,7 @@ ZWMaster 是一款專為紫微斗數愛好者、研究者及命理師設計的�
 另提供網頁版本，適合臨時點閱。
 *(註：速度受限傳輸速率，載入及切換時有延遲感)*
 
-👉 [立即存取 ZWMaster 網頁版](https://bit.ly/ZWMweb)
+👉 [立即存取 ZWMaster 網頁版](https://zwm.dnns.cc)
 
 ---
 
